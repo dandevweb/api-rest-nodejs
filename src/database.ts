@@ -1,6 +1,6 @@
-import { knex as setupKnex } from 'knex'
+import { knex as setupKnex, Knex } from 'knex'
 
-export const knex = setupKnex({
+export const config: Knex.Config = {
   client: 'mysql',
   connection: {
     host: '127.0.0.1',
@@ -9,4 +9,10 @@ export const knex = setupKnex({
     password: 'root',
     database: 'api-node',
   },
-})
+  migrations: {
+    extension: 'ts',
+    directory: './database/migrations',
+  },
+}
+
+export const knex = setupKnex(config)
