@@ -4,9 +4,11 @@ import { knex } from './database'
 const app = fastfy()
 
 app.get('/hello', async () => {
-  const tables = knex('schema').select('*')
+  const transaction = await knex('transactions')
+    .where('amount', 100)
+    .select('*')
 
-  return tables
+  return transaction
 })
 
 app
