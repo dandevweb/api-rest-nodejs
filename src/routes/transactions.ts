@@ -4,12 +4,14 @@ import { randomUUID } from 'node:crypto'
 import { knex } from '../database'
 
 export async function transactionsRoutes(app: FastifyInstance) {
+  // list all
   app.get('/', async () => {
     const transactions = await knex('transactions').select()
 
     return { transactions }
   })
 
+  // show by id
   app.get('/:id', async (request) => {
     const getTransactionParams = z.object({
       id: z.string().uuid(),
@@ -22,6 +24,16 @@ export async function transactionsRoutes(app: FastifyInstance) {
     return { transaction }
   })
 
+  // summary
+  app.get('/summary', async (request) => {
+    const summary = await knex('transactions')
+      .sum('amount', { as: 'total' })
+      .first()
+
+    return { summary }
+  })
+
+  // create
   app.post('/', async (request, reply) => {
     const createTransactionBody = z.object({
       title: z.string(),
