@@ -5,7 +5,7 @@ const envSchema = z.object({
   NODE_ENV: z.enum(['development', 'production', 'test']).default('production'),
   DB_CONNECTION: z.string(),
   DB_HOST: z.string(),
-  DB_PORT: z.number(),
+  DB_PORT: z.coerce.number().default(3306),
   DB_PASSWORD: z.string(),
   DB_USERNAME: z.string(),
   DB_DATABASE: z.string(),

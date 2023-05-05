@@ -1,14 +1,10 @@
 import fastfy from 'fastify'
-import { knex } from './database'
+import { transactionsRoutes } from './routes/transactions'
 
 const app = fastfy()
 
-app.get('/hello', async () => {
-  const transaction = await knex('transactions')
-    .where('amount', 100)
-    .select('*')
-
-  return transaction
+app.register(transactionsRoutes, {
+  prefix: '/transactions',
 })
 
 app
