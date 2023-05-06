@@ -6,5 +6,5 @@ app
     port: env.APP_PORT,
   })
   .then(() => {
-    console.log('Listening on port 3333')
+    console.log('Server running')
   })
